@@ -1,0 +1,39 @@
+.signuppage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  /* border: 1px solid red; */
+  background-image: url("../../../../assets/bg.jpg");
+  background-position: center;
+  background-size: cover;
+  backdrop-filter: 1px;
+  width: 100%;
+}
+
+.signupinputs {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-width: 30%;
+  padding: 70px 30px;
+}
+
+.signupinputs > input {
+  width: 80%;
+}
+.signupinputs > div {
+  width: 80%;
+  text-align: end;
+}
+
+@media screen and (max-width: 1000px) {
+  .signupinputs {
+    width: 90%;
+  }
+  .signupinputs > input {
+    width: 100%;
+  }
+}

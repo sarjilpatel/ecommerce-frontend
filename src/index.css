@@ -1,0 +1,122 @@
+* {
+  padding: 0;
+  margin: 0;
+  font-size: inherit;
+}
+
+a {
+  text-decoration: none !important;
+}
+
+.changeThemebtn {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+
+:root {
+  --light-theme-sidebar-bg: rgb(160, 160, 160);
+  --theme-dark-bg-color: rgb(6 11 16);
+  --theme-dark-bg-hover-color: #141a23;
+  --theme-dark-bg-color-2: #1f252d;
+  --theme-dark-border-color: #36415032;
+  --theme-dark-bg-hover-light: #474c53;
+}
+
+.loadermain {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100000;
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.loadermain > .loaderbird {
+  height: 100px;
+}
+
+input {
+  padding: 5px 10px;
+  border-radius: 3px;
+  border: 1px solid var(--theme-dark-border-color);
+  font-size: 12px !important;
+  background-color: rgb(247, 247, 247);
+  color: rgb(83, 83, 83);
+}
+
+.customInput {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  /* border: 1px solid red; */
+  /* height: 48px; */
+}
+
+.customInput > .errordisplay {
+  color: red;
+  font-size: 10px;
+  margin: 0;
+  text-align: left;
+}
+
+input:focus {
+  outline: none;
+}
+
+.app {
+  display: flex;
+  width: 100vw;
+  height: 100dvh;
+  /* border: 1px solid blue; */
+  /* background-color: #1e2027; */
+}
+
+.cardcustom {
+  /* padding: 30px; */
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.09) 0px 3px 12px;
+}
+
+.wrappercomponent {
+  display: flex;
+  flex-direction: column;
+  /* border: 1px solid black; */
+  width: 100%;
+  height: 100%;
+}
+
+button.submitbuttoncustom {
+  background-color: var(--theme-dark-bg-color);
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  min-width: 100px;
+  color: rgb(196, 196, 196);
+  font-size: 12px;
+  transition: 0.3s all;
+}
+
+button.submitbuttoncustom:hover {
+  background-color: var(--theme-dark-bg-color-2);
+  color: white;
+}
+
+.linkcustom {
+  color: var(--theme-dark-bg-color) !important;
+  font-size: 12px;
+}
+.linkcustom:hover {
+  color: var(--theme-dark-bg-hover-light) !important;
+}
+
+@media screen and (max-width: 1000px) {
+  .cardcustom {
+    padding: 100px 10px;
+  }
+}
