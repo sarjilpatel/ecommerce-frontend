@@ -3,12 +3,12 @@ import { Accordion } from "react-bootstrap";
 import sidebarData from "./sidebarData";
 import SidebarItem from "../SidebarItem/SidebarItem";
 import SidebarItemCollapse from "../SidebarItemCollapse/SidebarItemCollapse";
-import "./UserSidebar.css";
+import "./sidebar.css";
 import { IoMdClose } from "react-icons/io";
 import { IoIosMenu } from "react-icons/io";
 import useClickOutside from "../../../hooks/useClickOutSide";
 
-const UserSidebar = () => {
+const sidebar = () => {
   const [open, setOpen] = useState(false);
 
   const sidebarRef = useClickOutside(() => {
@@ -20,7 +20,7 @@ const UserSidebar = () => {
         className="sidebarMenubtn"
         onClick={() => setOpen((open) => !open)}
       />
-      <div className={`usersidebar ${open ? "active" : ""}`} ref={sidebarRef}>
+      <div className={`sidebar ${open ? "active" : ""}`} ref={sidebarRef}>
         <IoMdClose
           className="sidebarclosebtn"
           onClick={() => setOpen((open) => !open)}
@@ -50,4 +50,4 @@ const UserSidebar = () => {
   );
 };
 
-export default UserSidebar;
+export default sidebar;

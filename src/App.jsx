@@ -1,39 +1,32 @@
-import { useLayoutEffect, useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
-import UserSidebar from "./app/components/Sidebar/UserSidebar/UserSidebar";
-import { useDispatch, useSelector } from "react-redux";
-import { changeTheme } from "./app/redux/features/themeSlice";
+import { useContext, useEffect, useLayoutEffect, useState } from "react";
 import AllRoutes from "./app/routes/AllRoutes";
 import Loader from "./app/components/Loader";
-import { startLoading, stopLoading } from "./app/redux/features/loadingSlice";
-import { loginUser } from "./app/redux/features/userSlice";
-import axios from "axios";
 import { getUserDetails } from "./core/requests";
+import useLoading from "./app/hooks/useLoading";
+import useAuth from "./app/hooks/useAuth";
+import AdminSidebarWrapper from "./app/components/Sidebar/AdminSidebar/AdminSidebar";
 
 function App() {
-  const [count, setCount] = useState(0);
-  const dispatch = useDispatch();
+  const { isLoading, setIsLoading } = useLoading();
+  const { setAuth } = useAuth();
 
-  const { isLoading } = useSelector((state) => state.loadingState);
-
-  useLayoutEffect(() => {
-    dispatch(startLoading());
+  useEffect(() => {
     getUserDetails()
       .then((res) => {
-        dispatch(loginUser(res.data));
+        setAuth({ user: res.data.user, role: res.data.user.eRole });
       })
       .catch((err) => {
         console.log(err);
       })
       .finally(() => {
-        dispatch(stopLoading());
+        setIsLoading(false);
       });
   }, []);
 
   return (
     <div className="app">
-      {/* <UserSidebar /> */}
+      <AdminSidebarWrapper />
+
       {isLoading && <Loader />}
       <AllRoutes />
     </div>

@@ -1,16 +1,17 @@
 import React from "react";
 import "./Login.css";
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import {
+  Link,
+  useLocation,
+  useNavigate,
+  useSearchParams,
+} from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import CustomInput from "../../../components/CustomInput";
 import { login } from "../core/requests";
-import { useDispatch } from "react-redux";
-import {
-  startLoading,
-  stopLoading,
-} from "../../../redux/features/loadingSlice";
-import { loginUser } from "../../../redux/features/userSlice";
+import useAuth from "../../../hooks/useAuth";
+import useLoading from "../../../hooks/useLoading";
 
 const validationSchema = Yup.object().shape({
   vEmail: Yup.string()
@@ -22,9 +23,15 @@ const validationSchema = Yup.object().shape({
 
 const Login = () => {
   const idPrefix = "Loginpage";
-  const [searchparams] = useSearchParams();
+
+  const { setAuth } = useAuth();
+  const { setIsLoading } = useLoading();
+
+  console.log(useAuth());
+
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
 
   const formik = useFormik({
     initialValues: {
@@ -34,21 +41,17 @@ const Login = () => {
     validationSchema: validationSchema,
 
     onSubmit: (values) => {
-      dispatch(startLoading());
+      setIsLoading(true);
       login(values)
         .then((res) => {
-          dispatch(loginUser(res.data.user));
-          if (searchparams.get("refer")) {
-            navigate(searchparams.get("refer"));
-          } else {
-            navigate("/");
-          }
+          setAuth({ user: res.data.user, role: res.data.user.eRole });
+          navigate(from, { replace: true });
         })
         .catch((err) => {
           console.log(err);
         })
         .finally(() => {
-          dispatch(stopLoading());
+          setIsLoading(false);
         });
     },
   });

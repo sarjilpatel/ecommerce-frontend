@@ -1,29 +1,21 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import "./SidebarItem.css";
 import { Link } from "react-router-dom";
-import Accordion from "react-bootstrap/Accordion";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  setSidebarActive,
-  setSidebarTempActive,
-} from "../../../redux/features/sidebarSlice";
+import SidebarContext from "../SideBarProvider";
 
 const SidebarItem = ({ item, level, indexKey }) => {
-  const dispatch = useDispatch();
-  const { active } = useSelector((state) => state.sidebarState);
+  // const dispatch = useDispatch();
+  // const { active } = useSelector((state) => state.sidebarState);
 
-  const themeState = useSelector((state) => state.themeState);
+  const { active, setActive, setTempActive } = useContext(SidebarContext);
 
   const handleClick = () => {
-    console.log(indexKey);
-    dispatch(setSidebarActive(indexKey));
-    dispatch(setSidebarTempActive(indexKey));
+    setActive(indexKey);
+    setTempActive(indexKey);
   };
   return (
     <div
-      className={`sidebaritem ${
-        themeState.theme == "light" ? "light" : "dark"
-      } ${open ? "active" : ""}`}
+      className={`sidebaritem ${open ? "active" : ""}`}
       onClick={handleClick}
     >
       <Link

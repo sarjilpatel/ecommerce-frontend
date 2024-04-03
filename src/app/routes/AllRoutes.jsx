@@ -1,9 +1,10 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import Login from "../pages/auth/login/Login";
 import LoginPageWrapper from "../pages/auth/login/LoginPageWrapper";
 import SignUpPageWrapper from "../pages/auth/signup/SignUpPageWrapper";
-import AdminRoutes from "./AdminRoutes";
+import RequireAuth from "./RequireAuth";
+import AdminDashboard from "../pages/admin/admindashboard/AdminDashboard";
+import NotFound from "../pages/notfound/NotFound";
 
 const AllRoutes = () => {
   return (
@@ -11,7 +12,13 @@ const AllRoutes = () => {
       <Route path="/login" element={<LoginPageWrapper />} />
       <Route path="/signup" element={<SignUpPageWrapper />} />
 
-      <Route path="/admin" element={<AdminRoutes />} />
+      <Route element={<RequireAuth allowedRole="admin" />}>
+        <Route path="admin/">
+          <Route path="dashboard" element={<AdminDashboard />} />
+        </Route>
+      </Route>
+
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 };

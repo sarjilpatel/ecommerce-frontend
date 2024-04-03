@@ -1,6 +1,6 @@
 import React from "react";
 import "./Signup.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import CustomInput from "../../../components/CustomInput";
 import * as Yup from "yup";
 import { useFormik } from "formik";
@@ -24,6 +24,8 @@ const validationSchema = Yup.object().shape({
 
 const SignUp = () => {
   const idPrefix = "SignUpPage";
+  const [searchparams] = useSearchParams();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const formik = useFormik({
@@ -41,6 +43,11 @@ const SignUp = () => {
       signup(values)
         .then((res) => {
           dispatch(loginUser(res.data.user));
+          if (searchparams.get("refer")) {
+            navigate(searchparams.get("refer"));
+          } else {
+            navigate("/");
+          }
         })
         .catch((err) => {
           console.log(err);
