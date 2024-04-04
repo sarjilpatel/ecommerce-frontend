@@ -1,17 +1,15 @@
 import React from "react";
-import { Navigate, Route, Routes, useLocation } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import AdminDashboard from "../pages/admin/admindashboard/AdminDashboard";
-import { useSelector } from "react-redux";
+import RequireAuth from "./RequireAuth";
 
 const AdminRoutes = () => {
-  const userState = useSelector((state) => state.userState);
-
-  return userState.isLoggedIn && userState.userState.eRole == "admin" ? (
-    <Routes>
-      <Route path="/" element={<AdminDashboard />} />
-    </Routes>
-  ) : (
-    <Navigate to={`/login?refer=${useLocation().pathname}`} />
+  return (
+    <Route element={<RequireAuth allowedRole="admin" />}>
+      <Routes path="admin/">
+        <Route path="dashboard" element={<AdminDashboard />} />
+      </Routes>
+    </Route>
   );
 };
 

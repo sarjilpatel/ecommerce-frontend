@@ -4,7 +4,10 @@ import LoginPageWrapper from "../pages/auth/login/LoginPageWrapper";
 import SignUpPageWrapper from "../pages/auth/signup/SignUpPageWrapper";
 import RequireAuth from "./RequireAuth";
 import AdminDashboard from "../pages/admin/admindashboard/AdminDashboard";
-import NotFound from "../pages/notfound/NotFound";
+import NotFound from "../pages/NotFound/NotFound";
+import AddBrand from "../pages/admin/brands/AddBrand/AddBrand";
+import AllBrandsWrapper from "../pages/admin/brands/AllBrands/AllBrandsWrapper";
+import AddBrandsWrapper from "../pages/admin/brands/AddBrand/AddBrandsWrapper";
 
 const AllRoutes = () => {
   return (
@@ -15,6 +18,10 @@ const AllRoutes = () => {
       <Route element={<RequireAuth allowedRole="admin" />}>
         <Route path="admin/">
           <Route path="dashboard" element={<AdminDashboard />} />
+          <Route path="brands/">
+            <Route path="add" element={<AddBrandsWrapper />} />
+            <Route path="all" element={<AllBrandsWrapper />} />
+          </Route>
         </Route>
       </Route>
 

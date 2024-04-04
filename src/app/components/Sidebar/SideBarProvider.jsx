@@ -7,7 +7,9 @@ export const SidebarProvider = ({ children }) => {
   const [tempActive, setTempActive] = useState("");
 
   return (
-    <SidebarContext.Provider value={{ active, setActive }}>
+    <SidebarContext.Provider
+      value={{ active, setActive, tempActive, setTempActive }}
+    >
       {children}
     </SidebarContext.Provider>
   );

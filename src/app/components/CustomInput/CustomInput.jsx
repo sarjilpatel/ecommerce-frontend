@@ -1,4 +1,5 @@
 import React from "react";
+import "./CustomInput.css";
 
 const CustomInput = (props) => {
   const { error, errortext } = props;

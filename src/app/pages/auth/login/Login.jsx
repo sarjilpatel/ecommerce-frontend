@@ -8,7 +8,7 @@ import {
 } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import CustomInput from "../../../components/CustomInput";
+import CustomInput from "../../../components/CustomInput/CustomInput";
 import { login } from "../core/requests";
 import useAuth from "../../../hooks/useAuth";
 import useLoading from "../../../hooks/useLoading";
