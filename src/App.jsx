@@ -5,6 +5,7 @@ import { getUserDetails } from "./core/requests";
 import useLoading from "./app/hooks/useLoading";
 import useAuth from "./app/hooks/useAuth";
 import AdminSidebarWrapper from "./app/components/Sidebar/AdminSidebar/AdminSidebar";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   const { isLoading, setIsLoading } = useLoading();
@@ -26,6 +27,7 @@ function App() {
   return (
     <div className="app">
       <AdminSidebarWrapper />
+      <Toaster position="top-right" reverseOrder={false} />
 
       {isLoading && <Loader />}
       <AllRoutes />
