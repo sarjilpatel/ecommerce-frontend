@@ -1,6 +1,6 @@
 import React from "react";
 import "./Signup.css";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import CustomInput from "../../../components/CustomInput/CustomInput";
 import * as Yup from "yup";
 import { useFormik } from "formik";

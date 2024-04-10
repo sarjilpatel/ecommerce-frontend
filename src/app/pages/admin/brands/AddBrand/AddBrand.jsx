@@ -35,7 +35,7 @@ const AddBrand = () => {
   });
 
   return (
-    <div className="addbrandpage">
+    <div className="addbrandpage regularpadding">
       <form
         action=""
         className="cardcustom addbrandform"

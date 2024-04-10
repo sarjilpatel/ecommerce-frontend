@@ -1,11 +1,11 @@
 import React from "react";
-import PageTitle from "../../../../components/PageTitle";
+import PageTitle from "../../../../components/Pageatitle/PageTitle";
 import AllBrands from "./AllBrands";
 
 const AllBrandsWrapper = () => {
   return (
     <div className="wrappercomponent">
-      <PageTitle>All Brands</PageTitle>
+      <PageTitle display={true}>All Brands</PageTitle>
       <AllBrands />
     </div>
   );
