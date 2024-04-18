@@ -8,6 +8,8 @@ import NotFound from "../pages/NotFound/NotFound";
 import AddBrand from "../pages/admin/brands/AddBrand/AddBrand";
 import AllBrandsWrapper from "../pages/admin/brands/AllBrands/AllBrandsWrapper";
 import AddBrandsWrapper from "../pages/admin/brands/AddBrand/AddBrandsWrapper";
+import AddGroupWrapper from "../pages/admin/categorization/groups/AddGroup/AddGroupWrapper";
+import AllGroupsWrapper from "../pages/admin/categorization/groups/AllGroup/AllGroupsWrapper";
 
 const AllRoutes = () => {
   return (
@@ -21,6 +23,12 @@ const AllRoutes = () => {
           <Route path="brands/">
             <Route path="add" element={<AddBrandsWrapper />} />
             <Route path="all" element={<AllBrandsWrapper />} />
+          </Route>
+          <Route path="categorization/">
+            <Route path="groups/">
+              <Route path="add" element={<AddGroupWrapper />} />
+              <Route path="all" element={<AllGroupsWrapper />} />
+            </Route>
           </Route>
         </Route>
       </Route>

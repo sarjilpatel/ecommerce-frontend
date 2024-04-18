@@ -1,100 +1,56 @@
-import Loader from "../../../../../components/loader/Loader";
-import {
-  Avatar,
-  Box,
-  Button,
-  Container,
-  CssBaseline,
-  TextField,
-  Typography,
-} from "@mui/material";
-import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React from "react";
+import CustomInput from "../../../../../components/CustomInput/CustomInput";
+import { addGroup } from "./core/requests";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 import toast from "react-hot-toast";
-import { Link } from "react-router-dom";
+
+const validationSchema = Yup.object().shape({
+  vName: Yup.string().required("Group Name is required"),
+});
 
 const AddGroup = () => {
-  const [name, setName] = useState("");
-  const [loading, setLoading] = useState(false);
-
-  const handleSubmit = async () => {
-    setLoading(true);
-    await axios
-      .post(
-        `/groups`,
-        { vName: name },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      )
-      .then((res) => {
-        setLoading(false);
-        toast.success("Group added successfully !!");
-      })
-      .catch((err) => {
-        setLoading(false);
-        console.log(err);
-        toast.error(
-          err.response.data.message ||
-            "Something went wrong please try again later!!"
-        );
-      });
-  };
+  const idPrefix = "AddGroup";
+  const formik = useFormik({
+    initialValues: {
+      vName: "",
+    },
+    validationSchema: validationSchema,
+    onSubmit: (values, { resetForm }) => {
+      addGroup(values)
+        .then((res) => {
+          toast.success(res.data.message);
+          resetForm();
+        })
+        .catch((err) => {
+          toast.error(err?.response?.data?.message || "Something went wrong");
+        });
+    },
+  });
 
   return (
-    <div className="addcategory">
-      {loading && <Loader />}
-      <Typography component="h1" variant="h5">
-        Add Group
-      </Typography>
-      <Container
-        component="main"
-        maxWidth="xs"
-        sx={{
-          margin: 0,
-        }}
-      >
-        <CssBaseline />
-        <Box
-          sx={{
-            // marginTop: 8,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
-          <Box noValidate sx={{ mt: 1 }}>
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="group"
-              label="group"
-              name="group"
-              autoComplete="group"
-              autoFocus
-              onChange={(e) => setName(e.target.value)}
+    <div className="regularpadding">
+      <form action="" className="cardcustom" onSubmit={formik.handleSubmit}>
+        <div className="p-5 table-responsive d-flex flex-column gap-5">
+          <h2>Add Group</h2>
+          <div className="d-flex flex-column gap-3">
+            <CustomInput
+              autocomplete={"off"}
+              type="text"
+              placeholder="Group Name"
+              name="vName"
+              value={formik.values.vName}
+              onChange={formik.handleChange}
+              id={`${idPrefix}vName`}
+              error={formik.errors.vName && formik.touched.vName}
+              errortext={formik.errors.vName}
             />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-              onClick={(e) => handleSubmit(e)}
-            >
-              Add Group
-            </Button>
-
-            <Link to="/admin/categories/all">
-              <Typography component="p" align="right" color="primary">
-                See all groups
-              </Typography>
-            </Link>
-          </Box>
-        </Box>
-      </Container>
+            <button type="submit" className="submitbuttoncustom ">
+              Submit
+            </button>
+          </div>
+        </div>
+      </form>
     </div>
   );
 };

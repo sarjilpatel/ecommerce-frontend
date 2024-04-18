@@ -1,8 +1,8 @@
-* {
+/* * {
   padding: 0;
   margin: 0;
   font-size: inherit;
-}
+} */
 
 a {
   text-decoration: none !important;
@@ -16,8 +16,8 @@ a {
 
 :root {
   --light-theme-sidebar-bg: rgb(160, 160, 160);
-  --theme-dark-bg-color: rgb(6 11 16);
-  --theme-dark-bg-hover-color: #141a23;
+  --theme-dark-bg-color: #12181f;
+  --theme-dark-bg-hover-color: #272f38;
   --theme-dark-bg-color-2: #1f252d;
   --theme-dark-border-color: #36415032;
   --theme-dark-bg-hover-light: #474c53;
@@ -43,9 +43,12 @@ a {
 .app {
   display: flex;
   width: 100vw;
-  height: 100dvh;
+  min-height: 100dvh;
   /* border: 1px solid blue; */
   /* background-color: #1e2027; */
+  background-color: #f6f7f8;
+  padding-left: 280px;
+  /* background-color: red; */
 }
 
 .cardcustom {
@@ -92,8 +95,50 @@ button.submitbuttoncustom:hover {
   padding: 100px;
 }
 
+.customactioncell {
+  display: flex;
+  gap: 20px;
+}
+
+.customactioncell > .actionbutton {
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.customactioncell > .editbutton {
+  color: #2f7bbe;
+}
+
+.customactioncell > .deletebutton {
+  color: #d9544c;
+}
+
+.customtooltip {
+  position: absolute;
+  bottom: 100%;
+}
+.copycustom {
+  cursor: pointer;
+}
+
+.copycustom:focus {
+  outline: none;
+}
 @media screen and (max-width: 1000px) {
+  .app {
+    padding: 0;
+  }
   .cardcustom {
-    padding: 100px 10px;
+    /* padding: 100px 10px; */
+  }
+}
+@media screen and (max-width: 800px) {
+  .regularpadding {
+    padding: 50px;
+  }
+}
+@media screen and (max-width: 500px) {
+  .regularpadding {
+    padding: 20px;
   }
 }

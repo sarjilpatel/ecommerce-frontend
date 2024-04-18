@@ -3,9 +3,9 @@
 
   width: 280px;
   /* min-height: 100vh; */
-  min-height: 100vh;
-  /* height: 100%; */
-  background-color: var(--theme-dark-bg-color) !important;
+  /* min-height: 100dvh; */
+  height: 100%;
+  background-color: var(--theme-dark-bg-color);
 
   /* display: none; */
   flex-direction: column;
@@ -13,9 +13,17 @@
   transition: 0.3s all;
 }
 
-.sidebar {
-  background-color: var(--theme-dark-bg-color) !important;
+.sidebarwrapper {
+  min-height: 100vh;
+  position: fixed;
+  left: 0;
+  /* height: 100%  ; */
+  background-color: var(--theme-dark-bg-color);
 }
+
+/* .sidebar {
+    background-color: var(--theme-dark-bg-color) !important;
+  } */
 
 .sidebarMenubtn {
   display: none;
