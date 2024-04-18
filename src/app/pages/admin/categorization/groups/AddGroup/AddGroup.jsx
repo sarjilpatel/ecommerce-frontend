@@ -35,7 +35,7 @@ const AddGroup = () => {
           <h2>Add Group</h2>
           <div className="d-flex flex-column gap-3">
             <CustomInput
-              autocomplete={"off"}
+              autoComplete={"off"}
               type="text"
               placeholder="Group Name"
               name="vName"

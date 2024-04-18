@@ -43,7 +43,7 @@ const AddBrand = () => {
       >
         <h2>Add Brand</h2>
         <CustomInput
-          autocomplete={"off"}
+          autoComplete={"off"}
           type="text"
           placeholder="Brand Name"
           name="vName"
@@ -54,7 +54,7 @@ const AddBrand = () => {
           errortext={formik.errors.vName}
         />
         <CustomTextArea
-          autocomplete={"off"}
+          autoComplete={"off"}
           type="textarea"
           placeholder="Brand Description"
           name="tBranddescription"
