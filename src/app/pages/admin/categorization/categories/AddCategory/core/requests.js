@@ -1,7 +1,7 @@
 import api from "../../../../../../api/api";
 
-const addGroup = async (data) => {
-  return await api.post("/categorization/groups", data, {
+const addCategory = async (data) => {
+  return await api.post("/categorization/categories", data, {
     headers: {
       "Content-Type": "application/json",
     },
@@ -9,4 +9,4 @@ const addGroup = async (data) => {
   });
 };
 
-export { addGroup };
+export { addCategory };

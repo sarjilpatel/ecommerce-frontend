@@ -7,20 +7,29 @@
 }
 
 .customInput > input {
-  padding: 5px 10px;
+  padding: 7px 10px;
   border-radius: 3px;
   border: 1px solid var(--theme-dark-border-color);
   font-size: 12px !important;
-  background-color: rgb(247, 247, 247);
+  /* background-color: rgb(247, 247, 247); */
   color: rgb(83, 83, 83);
 }
 
 .customInput > input:focus {
-  outline: none;
+  outline: 1px solid var(--theme-dark-border-color2);
+  /* border: 1px solid var(--theme-dark-border-color2); */
 }
 .customInput > .errordisplay {
   color: red;
   font-size: 10px;
   margin: 0;
   text-align: left;
+}
+
+.customInput > .labledisplay {
+  font-size: 14px !important;
+  margin-bottom: 5px;
+  line-height: 1;
+  color: rgb(0, 0, 0);
+  font-weight: 700;
 }

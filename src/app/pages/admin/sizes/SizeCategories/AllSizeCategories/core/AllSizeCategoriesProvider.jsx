@@ -1,19 +1,19 @@
-import React, { useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import { getAllSizeCategories } from "./requests";
+import Loader from "../../../../../../components/Loader";
 
 const AllSizeCategoriesContext = createContext({});
 
-const AllSizeCategoriesProvider = () => {
+export const AllSizeCategoriesProvider = ({ children }) => {
   const [allSizeCategories, setAllSizeCategories] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   //   const [isLoading, setIsLoading] = useState(true);
-
-  const {isLoading,setIsLoading} = 
 
   useEffect(() => {
     // setIsLoading(true);
     getAllSizeCategories()
       .then((res) => {
-        setAllSizeCategories(res.data.groups);
+        setAllSizeCategories(res.data.sizeCategories);
       })
       .catch((err) => {
         console.log(err);
@@ -24,11 +24,13 @@ const AllSizeCategoriesProvider = () => {
   }, []);
 
   return (
-    <AllSizeCategoriesContext.Provider>
+    <AllSizeCategoriesContext.Provider
+      value={{ allSizeCategories, setAllSizeCategories }}
+    >
       {isLoading && <Loader />}
       {children}
     </AllSizeCategoriesContext.Provider>
   );
 };
 
-export default AllSizeCategoriesProvider;
+export default AllSizeCategoriesContext;

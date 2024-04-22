@@ -1,0 +1,14 @@
+.customselectlable {
+  font-size: 14px !important;
+  margin-bottom: 5px;
+  line-height: 1;
+  color: rgb(0, 0, 0);
+  font-weight: 700;
+}
+
+.customSelectSearch > .errordisplay {
+  color: red;
+  font-size: 10px;
+  margin: 0;
+  text-align: left;
+}

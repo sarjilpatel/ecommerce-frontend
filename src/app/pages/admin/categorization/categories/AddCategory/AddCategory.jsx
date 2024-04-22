@@ -1,156 +1,99 @@
-import { LockOutlined } from "@mui/icons-material";
-import {
-  Avatar,
-  Box,
-  Button,
-  Container,
-  CssBaseline,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-  TextField,
-  Typography,
-} from "@mui/material";
-import axios from "axios";
-import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import Loader from "../../../../../components/loader/Loader";
-import toast from "react-hot-toast";
 import "./AddCategory.css";
+import CustomInput from "../../../../../components/CustomInput/CustomInput";
+import { useFormik } from "formik";
+
+import * as Yup from "yup";
+import toast from "react-hot-toast";
+import { addCategory } from "./core/requests";
+import { useContext } from "react";
+import AddCategoryContext from "./core/AddCategoryProvider";
+import Select from "react-select";
+import CustomSelectSearch from "../../../../../components/CustomSelectSearch/CustomSelectSearch";
+
+const validationSchema = Yup.object().shape({
+  vName: Yup.string().required("Category Name is required"),
+  uGroupId: Yup.string().required("Group is required"),
+  uSizeCategoryId: Yup.string().required("Sizecategory is required"),
+});
 
 const AddCategory = () => {
-  const [name, setName] = useState("");
-  const [group, setGroup] = useState("");
+  const idPrefix = "AddCategory";
 
-  const [loading, setLoading] = useState(false);
-  const [groups, setGroups] = useState([]);
+  const { allGroups, allSizeCategories } = useContext(AddCategoryContext);
 
-  useEffect(() => {
-    setLoading(true);
-    axios
-      .get("/groups")
-      .then((res) => {
-        setGroups(res.data.groups);
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  }, []);
-
-  const handleSubmit = async () => {
-    setLoading(true);
-    await axios
-      .post(
-        `/categories`,
-        { vName: name, iGroupId: group },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      )
-      .then((res) => {
-        setLoading(false);
-        toast.success("Category added successfully !!");
-      })
-      .catch((err) => {
-        setLoading(false);
-        console.log(err);
-        toast.error(
-          err.response.data.message ||
-            "Something went wrong please try again later!!"
-        );
-      });
-  };
-
+  const formik = useFormik({
+    initialValues: {
+      vName: "",
+      uGroupId: "",
+      uSizeCategoryId: "",
+    },
+    validationSchema: validationSchema,
+    onSubmit: (values, { resetForm }) => {
+      console.log(values);
+      addCategory(values)
+        .then((res) => {
+          toast.success(res.data.message);
+          resetForm();
+        })
+        .catch((err) => {
+          toast.error(err?.response?.data?.message || "Something went wrong");
+        });
+    },
+  });
   return (
-    <div className="addcategory">
-      {loading && <Loader />}
-      <Typography component="h1" variant="h5">
-        Add Category
-      </Typography>
-      <Container
-        component="main"
-        maxWidth="xs"
-        sx={{
-          margin: 0,
-        }}
-      >
-        <CssBaseline />
-        <Box
-          sx={{
-            // marginTop: 8,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
-          <Box noValidate sx={{ mt: 1 }}>
-            <FormControl sx={{ width: "100%" }}>
-              <InputLabel id="demo-simple-select-helper-label">
-                Select Group
-              </InputLabel>
-              <Select
-                labelId="demo-simple-select-helper-label"
-                id="demo-simple-select-helper"
-                // value={age}
-                sx={{
-                  width: "100%",
-                }}
-                className="textfield"
-                defaultValue=""
-                label="Select Group"
-                onChange={(e) => setGroup(e.target.value)}
-              >
-                <MenuItem value="">
-                  <em>None</em>
-                </MenuItem>
-                {groups &&
-                  groups?.map((g) => {
-                    return <MenuItem value={g.id}>{g.vName}</MenuItem>;
-                  })}
-                <MenuItem value="">
-                  <Link
-                    className="missingcategoryoption"
-                    to="/admin/categories/add"
-                  >
-                    Missing Category? Add One
-                  </Link>
-                </MenuItem>
-              </Select>
-            </FormControl>
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="category"
-              label="category"
-              name="category"
-              autoComplete="category"
-              autoFocus
-              onChange={(e) => setName(e.target.value)}
+    <div className="regularpadding">
+      <form action="" className="cardcustom" onSubmit={formik.handleSubmit}>
+        <div className="p-5 table-responsive d-flex flex-column gap-5">
+          <h2>Add Category</h2>
+          <div className="d-flex flex-column gap-3">
+            <CustomInput
+              autoComplete={"off"}
+              type="text"
+              placeholder="Category Name"
+              name="vName"
+              value={formik.values.vName}
+              onChange={formik.handleChange}
+              id={`${idPrefix}vName`}
+              error={formik.errors.vName && formik.touched.vName ? "true" : ""}
+              errortext={formik.errors.vName}
             />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-              onClick={(e) => handleSubmit(e)}
-            >
-              Add Category
-            </Button>
-            <Link to="/admin/categories/all">
-              <Typography component="p" align="right" color="primary">
-                See all categories
-              </Typography>
-            </Link>
-          </Box>
-        </Box>
-      </Container>
+
+            <CustomSelectSearch
+              lable="Group"
+              handleOnChange={formik.handleChange}
+              optionLableAccessor={"vName"}
+              optionValueAccessor={"id"}
+              options={allGroups}
+              name={"uGroupId"}
+              value={formik.values.uGroupId}
+              error={
+                formik.errors.uGroupId && formik.touched.uGroupId ? "true" : ""
+              }
+              errortext={formik.errors.uGroupId}
+            />
+
+            <CustomSelectSearch
+              lable="Size Category"
+              handleOnChange={formik.handleChange}
+              optionLableAccessor={"vName"}
+              optionValueAccessor={"id"}
+              options={allSizeCategories}
+              name={"uSizeCategoryId"}
+              value={formik.values.uSizeCategoryId}
+              error={
+                formik.errors.uSizeCategoryId && formik.touched.uSizeCategoryId
+                  ? "true"
+                  : ""
+              }
+              errortext={formik.errors.uSizeCategoryId}
+            />
+
+            <button type="submit" className="submitbuttoncustom ">
+              Submit
+            </button>
+          </div>
+        </div>
+      </form>
     </div>
   );
 };

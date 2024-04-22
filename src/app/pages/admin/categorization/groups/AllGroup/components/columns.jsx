@@ -37,7 +37,7 @@ const AllGroupsColumns = [
           <EditGroupModal
             show={show}
             handleClose={handleClose}
-            brand={row.original}
+            group={row.original}
           />
           <MdDeleteForever
             onClick={() => alert(`Delete ${row.original.id}`)}

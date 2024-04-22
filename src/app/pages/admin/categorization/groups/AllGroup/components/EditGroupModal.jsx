@@ -5,18 +5,18 @@ import { useFormik } from "formik";
 import CustomInput from "../../../../../../components/CustomInput/CustomInput";
 
 const validationSchema = Yup.object().shape({
-  vName: Yup.string().required("Brand Name is required"),
+  vName: Yup.string().required("Group Name is required"),
 });
 
-const EditGroupModal = ({ show, handleClose, brand }) => {
-  const idPrefix = "AddBrand";
+const EditGroupModal = ({ show, handleClose, group }) => {
+  const idPrefix = "Editgroup";
   const formik = useFormik({
     initialValues: {
-      vName: brand.vName,
+      vName: group.vName,
     },
     validationSchema: validationSchema,
     onSubmit: (values, { resetForm }) => {
-      //   addBrand(values)
+      //   addgroup(values)
       //     .then((res) => {
       //       toast.success(res.data.message);
       //       resetForm();
@@ -31,14 +31,14 @@ const EditGroupModal = ({ show, handleClose, brand }) => {
   return (
     <Modal show={show} onHide={handleClose} centered>
       <Modal.Header closeButton>
-        <Modal.Title>Edit Brand </Modal.Title>
+        <Modal.Title>Edit Group </Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <div className="d-flex flex-column gap-3 p-5">
           <CustomInput
             autoComplete={"off"}
             type="text"
-            placeholder="Brand Name"
+            placeholder="group Name"
             name="vName"
             value={formik.values.vName}
             onChange={formik.handleChange}

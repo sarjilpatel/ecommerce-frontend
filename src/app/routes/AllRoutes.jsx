@@ -11,6 +11,8 @@ import AddBrandsWrapper from "../pages/admin/brands/AddBrand/AddBrandsWrapper";
 import AddGroupWrapper from "../pages/admin/categorization/groups/AddGroup/AddGroupWrapper";
 import AllGroupsWrapper from "../pages/admin/categorization/groups/AllGroup/AllGroupsWrapper";
 import AddSizeCategoryWrapper from "../pages/admin/sizes/SizeCategories/AddSizeCategory/AddSizeCategoryWrapper";
+import AllSizeCategoriesWrapper from "../pages/admin/sizes/SizeCategories/AllSizeCategories/AllSizeCategoriesWrapper";
+import AddCategoryWrapper from "../pages/admin/categorization/categories/AddCategory/AddCategoryWrapper";
 
 const AllRoutes = () => {
   return (
@@ -31,7 +33,7 @@ const AllRoutes = () => {
               <Route path="all" element={<AllGroupsWrapper />} />
             </Route>
             <Route path="categories/">
-              <Route path="add" element={<AddGroupWrapper />} />
+              <Route path="add" element={<AddCategoryWrapper />} />
               <Route path="all" element={<AllGroupsWrapper />} />
             </Route>
             <Route path="subcategories/">
@@ -43,7 +45,7 @@ const AllRoutes = () => {
           <Route path="sizes/">
             <Route path="sizecategories/">
               <Route path="add" element={<AddSizeCategoryWrapper />} />
-              <Route path="all" element={<AllGroupsWrapper />} />
+              <Route path="all" element={<AllSizeCategoriesWrapper />} />
             </Route>
             <Route path="sizeoptions/">
               <Route path="add" element={<AddGroupWrapper />} />
