@@ -1,62 +1,47 @@
-import React from "react";
+import React, { Suspense, lazy } from "react";
 import { Route, Routes } from "react-router-dom";
-import LoginPageWrapper from "../pages/auth/login/LoginPageWrapper";
-import SignUpPageWrapper from "../pages/auth/signup/SignUpPageWrapper";
-import RequireAuth from "./RequireAuth";
-import AdminDashboard from "../pages/admin/admindashboard/AdminDashboard";
-import NotFound from "../pages/NotFound/NotFound";
-import AddBrand from "../pages/admin/brands/AddBrand/AddBrand";
-import AllBrandsWrapper from "../pages/admin/brands/AllBrands/AllBrandsWrapper";
-import AddBrandsWrapper from "../pages/admin/brands/AddBrand/AddBrandsWrapper";
-import AddGroupWrapper from "../pages/admin/categorization/groups/AddGroup/AddGroupWrapper";
-import AllGroupsWrapper from "../pages/admin/categorization/groups/AllGroup/AllGroupsWrapper";
-import AddSizeCategoryWrapper from "../pages/admin/sizes/SizeCategories/AddSizeCategory/AddSizeCategoryWrapper";
-import AllSizeCategoriesWrapper from "../pages/admin/sizes/SizeCategories/AllSizeCategories/AllSizeCategoriesWrapper";
-import AddCategoryWrapper from "../pages/admin/categorization/categories/AddCategory/AddCategoryWrapper";
+import Loader from "../components/Loader";
+
+const LoginPageWrapper = lazy(() =>
+  import("../pages/auth/login/LoginPageWrapper")
+);
+const SignUpPageWrapper = lazy(() =>
+  import("../pages/auth/signup/SignUpPageWrapper")
+);
+const RequireAuth = lazy(() => import("./RequireAuth"));
+const NotFound = lazy(() => import("../pages/NotFound/NotFound"));
+
+const CategorizationWrapper = lazy(() =>
+  import("../pages/admin/categorization/CategorizationWrapper")
+);
+const BrandsWrapper = lazy(() => import("../pages/admin/brands/BrandsWrapper"));
+const SizesWrapper = lazy(() => import("../pages/admin/sizes/SizesWrapper"));
+const AdminDashboard = lazy(() =>
+  import("../pages/admin/admindashboard/AdminDashboard")
+);
 
 const AllRoutes = () => {
   return (
-    <Routes>
-      <Route path="/login" element={<LoginPageWrapper />} />
-      <Route path="/signup" element={<SignUpPageWrapper />} />
+    <Suspense fallback={<Loader />}>
+      <Routes>
+        <Route path="/login" element={<LoginPageWrapper />} />
+        <Route path="/signup" element={<SignUpPageWrapper />} />
 
-      <Route element={<RequireAuth allowedRole="admin" />}>
-        <Route path="admin/">
-          <Route path="dashboard" element={<AdminDashboard />} />
-          <Route path="brands/">
-            <Route path="add" element={<AddBrandsWrapper />} />
-            <Route path="all" element={<AllBrandsWrapper />} />
-          </Route>
-          <Route path="categorization/">
-            <Route path="groups/">
-              <Route path="add" element={<AddGroupWrapper />} />
-              <Route path="all" element={<AllGroupsWrapper />} />
-            </Route>
-            <Route path="categories/">
-              <Route path="add" element={<AddCategoryWrapper />} />
-              <Route path="all" element={<AllGroupsWrapper />} />
-            </Route>
-            <Route path="subcategories/">
-              <Route path="add" element={<AddGroupWrapper />} />
-              <Route path="all" element={<AllGroupsWrapper />} />
-            </Route>
-          </Route>
-          {/* Sizes */}
-          <Route path="sizes/">
-            <Route path="sizecategories/">
-              <Route path="add" element={<AddSizeCategoryWrapper />} />
-              <Route path="all" element={<AllSizeCategoriesWrapper />} />
-            </Route>
-            <Route path="sizeoptions/">
-              <Route path="add" element={<AddGroupWrapper />} />
-              <Route path="all" element={<AllGroupsWrapper />} />
-            </Route>
+        <Route element={<RequireAuth allowedRole="admin" />}>
+          <Route path="admin/">
+            <Route path="dashboard" element={<AdminDashboard />} />
+            <Route path="brands/*" element={<BrandsWrapper />} />
+            <Route
+              path="categorization/*"
+              element={<CategorizationWrapper />}
+            />
+            <Route path="sizes/*" element={<SizesWrapper />} />
           </Route>
         </Route>
-      </Route>
 
-      <Route path="*" element={<NotFound />} />
-    </Routes>
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </Suspense>
   );
 };
 

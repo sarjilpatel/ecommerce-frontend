@@ -9,7 +9,7 @@ const AddSizeCategoryWrapper = () => {
       <PageTitle
         display={true}
         content={
-          <Link to="/admin/sizes/sizecategories/all" className="btn btn-dark ">
+          <Link to="/admin/sizes/sizecategories" className="btn btn-dark ">
             All SizeCategories
           </Link>
         }

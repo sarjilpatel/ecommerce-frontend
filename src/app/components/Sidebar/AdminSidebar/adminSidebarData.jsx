@@ -69,7 +69,7 @@ const sidebarData = [
             icon: <MdAdd />,
           },
           {
-            path: "/admin/categorization/categories/all",
+            path: "/admin/categorization/categories",
             displayText: "All Categories",
             icon: <CiCircleList />,
           },
@@ -112,7 +112,7 @@ const sidebarData = [
             icon: <MdAdd />,
           },
           {
-            path: "/admin/sizes/sizecategories/all",
+            path: "/admin/sizes/sizecategories",
             displayText: "All Size Categories",
             icon: <CiCircleList />,
           },
@@ -183,7 +183,7 @@ const sidebarData = [
         icon: <MdAdd />,
       },
       {
-        path: "/admin/brands/all",
+        path: "/admin/brands",
         displayText: "All Brands",
         icon: <CiCircleList />,
       },

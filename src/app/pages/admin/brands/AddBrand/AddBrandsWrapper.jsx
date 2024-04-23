@@ -10,7 +10,7 @@ const AddBrandsWrapper = () => {
       <PageTitle
         display={true}
         content={
-          <Link to="/admin/brands/all" className="btn btn-dark ">
+          <Link to="/admin/brands" className="btn btn-dark ">
             All Brands
           </Link>
         }

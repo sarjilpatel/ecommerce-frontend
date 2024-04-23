@@ -9,6 +9,7 @@ import { useContext } from "react";
 import AddCategoryContext from "./core/AddCategoryProvider";
 import Select from "react-select";
 import CustomSelectSearch from "../../../../../components/CustomSelectSearch/CustomSelectSearch";
+import { useLocation } from "react-router-dom";
 
 const validationSchema = Yup.object().shape({
   vName: Yup.string().required("Category Name is required"),
@@ -16,17 +17,19 @@ const validationSchema = Yup.object().shape({
   uSizeCategoryId: Yup.string().required("Sizecategory is required"),
 });
 
-const AddCategory = () => {
+const AddCategory = ({ isEditMode }) => {
   const idPrefix = "AddCategory";
-
   const { allGroups, allSizeCategories } = useContext(AddCategoryContext);
+  const location = useLocation();
 
   const formik = useFormik({
-    initialValues: {
-      vName: "",
-      uGroupId: "",
-      uSizeCategoryId: "",
-    },
+    initialValues: isEditMode
+      ? location.state
+      : {
+          vName: "",
+          uGroupId: "",
+          uSizeCategoryId: "",
+        },
     validationSchema: validationSchema,
     onSubmit: (values, { resetForm }) => {
       console.log(values);
@@ -44,7 +47,7 @@ const AddCategory = () => {
     <div className="regularpadding">
       <form action="" className="cardcustom" onSubmit={formik.handleSubmit}>
         <div className="p-5 table-responsive d-flex flex-column gap-5">
-          <h2>Add Category</h2>
+          <h2>{isEditMode ? "Edit" : "Add"} Category</h2>
           <div className="d-flex flex-column gap-3">
             <CustomInput
               autoComplete={"off"}
